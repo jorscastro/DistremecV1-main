@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Usuario</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body style="background-image: linear-gradient(to left,rgb(223, 231, 248),rgb(206, 181, 247));">
+    <div class="container mt-5">
+        <div th:replace="~{fragments/header :: header}"></div>
+        <h1>Formulario de Usuario</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <form th:action="@{/usuarios/nuevo}" th:object="${usuario}" method="post" th:if="${usuario.codUsuario == null}">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" th:value="*{nombre}" class="form-control" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" th:value="*{apellido}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="cedula">Cédula:</label>
+                            <input type="text" id="cedula" name="cedula" th:value="*{cedula}" class="form-control" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" id="telefono" name="telefono" th:value="*{telefono}" class="form-control" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="correo">Correo:</label>
+                            <input type="text" id="correo" name="correo" th:value="*{correo}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="ciudad">Ciudad:</label>
+                            <select id="ciudad" name="ciudad.idCiudad" class="form-control">
+                                <option value="">Seleccione una Ciudad</option>
+                                <option th:each="ciudad : ${ciudades}" th:value="${ciudad.idCiudad}" th:text="${ciudad.descriCiudad}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="cargo">Cargo:</label>
+                            <select id="cargo" name="cargo.idCargo" class="form-control">
+                                <option value="">Seleccione un Cargo</option>
+                                <option th:each="cargo : ${cargos}" th:value="${cargo.idCargo}" th:text="${cargo.descripcion}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </form>
+                <form th:action="@{/usuarios/{codUsuario}/editar(codUsuario=${usuario.codUsuario})}" th:object="${usuario}" method="post" th:if="${usuario.codUsuario != null}">
+                    <input type="hidden" id="codUsuario" name="codUsuario" th:value="*{codUsuario}" />
+                    <!-- Repetir los campos del formulario aquí para la edición, similar a la creación -->
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" th:value="*{nombre}" class="form-control" />
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" th:value="*{apellido}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="cedula">Cédula:</label>
+                            <input type="text" id="cedula" name="cedula" th:value="*{cedula}" class="form-control" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" id="telefono" name="telefono" th:value="*{telefono}" class="form-control" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="correo">Correo:</label>
+                            <input type="text" id="correo" name="correo" th:value="*{correo}" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="ciudad">Ciudad:</label>
+                            <select id="ciudad" name="ciudad.idCiudad" class="form-control" th:value="*{ciudad.idCiudad}">
+                                <option value="">Seleccione una Ciudad</option>
+                                <option th:each="ciudad : ${ciudades}" th:value="${ciudad.idCiudad}" th:text="${ciudad.descriCiudad}" th:selected="${ciudad.idCiudad == usuario.ciudad.idCiudad}"></option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="cargo">Cargo:</label>
+                            <select id="cargo" name="cargo.idCargo" class="form-control" th:value="*{cargo.idCargo}">
+                                <option value="">Seleccione un Cargo</option>
+                                <option th:each="cargo : ${cargos}" th:value="${cargo.idCargo}" th:text="${cargo.descripcion}" th:selected="${cargo.idCargo == usuario.cargo.idCargo}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Confirmar</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer" th:replace="~{fragments/footer :: footer}"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/foundation/6.2.4/foundation.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

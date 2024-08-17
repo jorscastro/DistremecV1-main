@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Facturación de Ventas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body style="background-image: linear-gradient(to left,rgb(223, 231, 248),rgb(206, 181, 247));">
+
+<div class="container mt-5">
+    <div th:replace="~{fragments/header :: header}"></div>
+    <h2>Factura de Venta</h2>
+    <div class="col-md-6">
+        <label for="clienteSelect">Cliente:</label>
+        <select class="form-control" id="clienteSelect">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.idCliente}" th:text="${cliente.nombre} +' '+${cliente.apellido}"></option>
+        </select>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <label for="productoSelect">Producto:</label>
+            <select class="form-control" id="productoSelect">
+                <option th:each="producto : ${productos}" th:value="${producto.codProducto}" th:text="${producto.nombreProducto}" th:data-precio="${producto.precio}"></option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" class="form-control" id="cantidad" value="1" min="1">
+        </div> 
+    </div>
+    <button id="agregarProducto" class="btn btn-primary mt-3">Agregar Producto</button>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaProductos">
+            <!-- Los productos seleccionados se mostrarán aquí -->
+        </tbody>
+    </table>
+
+    <h3>Total: $<span id="totalFactura">0.00</span></h3>
+    <button id="guardarFactura" class="btn btn-success">Guardar Factura</button>
+    <div class="footer" th:replace="~{fragments/footer :: footer}"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/facturacion.js}"></script>
+</body>
+</html>
