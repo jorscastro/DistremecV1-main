@@ -8,7 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "medicamentos")
@@ -28,16 +28,13 @@ public class Producto {
     private BigDecimal precio;
 
     @Column(name = "fechavencimiento")
-    private LocalDateTime fechaVencimiento;
-
-    @Column(name = "proveedorcod")
-    private Integer proveedorCod;
+    private LocalDate fechaVencimiento;
 
     @Column(name = "stock", length = 45)
-    private String stock;
+    private Integer stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "proveedorcod", referencedColumnName = "codproveedor", insertable = false, updatable = false)
+    @JoinColumn(name = "proveedorcod", referencedColumnName = "codproveedor")
     private Proveedor proveedor;
 
     public Integer getCodProducto() {
@@ -72,27 +69,19 @@ public class Producto {
         this.precio = precio;
     }
 
-    public LocalDateTime getFechaVencimiento() {
+    public LocalDate getFechaVencimiento() {
         return fechaVencimiento;
     }
 
-    public void setFechaVencimiento(LocalDateTime fechaVencimiento) {
+    public void setFechaVencimiento(LocalDate fechaVencimiento) {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public Integer getProveedorCod() {
-        return proveedorCod;
-    }
-
-    public void setProveedorCod(Integer proveedorCod) {
-        this.proveedorCod = proveedorCod;
-    }
-
-    public String getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 

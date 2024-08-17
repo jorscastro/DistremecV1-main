@@ -11,4 +11,8 @@ import com.distrimec.web.modelos.entidades.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     // Aquí puedes agregar consultas personalizadas si es necesario
     Optional<Usuario> findByCedula(Integer cedula);
+
+    Optional<Usuario> findByCorreo(String correo);
+
+    Optional<Usuario> findByToken(String token);
 }

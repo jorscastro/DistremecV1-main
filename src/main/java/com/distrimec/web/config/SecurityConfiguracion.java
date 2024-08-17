@@ -27,13 +27,13 @@ public class SecurityConfiguracion {
                 .disable())
             .authorizeHttpRequests(authRequest ->
               authRequest
-                .requestMatchers("/login/**", "/css/**", "/js/**", "/imagenes/**").permitAll()
+                .requestMatchers("/login/**", "/css/**", "/js/**", "/imagenes/**","/olvido/**","/registro/**").permitAll()
                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
                     formLogin
                         .loginPage("/login") // Redirect unauthenticated users to /login
-                        .defaultSuccessUrl("/clientes/", true)
+                        .defaultSuccessUrl("/home/", true)
                 )
             .sessionManagement(sessionManager->
                 sessionManager 

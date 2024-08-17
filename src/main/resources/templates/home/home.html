@@ -1,35 +1,71 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DISTRIMEC - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Venta de Medicamentos</title>
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <div th:replace="~{fragments/header :: header}"></div>
-            <a class="navbar-brand" href="#">DISTRIMEC</a>
+<div class="container mt-5">
+    <div th:replace="~{fragments/header :: header}"></div>
+    <main>
+        <section id="home">
+            <h2>Bienvenido a gestion de medicamentos Distrimec</h2>
+            <p>Gestiona medicamentos mas facil.</p>
+            <button id="shop-now">Gestion Ahora</button>
+        </section>
+        <section id="products">
             
-        </div>
-    </nav>
+            
+            <a class="product" th:href="@{'/productos/10/editar'}"><img th:src="@{/imagenes/img1.jpg}" alt="Medicamento 1">
+                <h3>Loratadina</h3>
+                <p>Este medicamento se usa para tratar síntomas como estornudos, moqueo, ojos llorosos, picazón en la garganta y sarpullido 
+                    con erupción o urticaria. Algunas marcas de la loratadina son Claritin® y Alavert®.
+                </p>
+            </a>
 
-    <!-- Hero Section -->
-    <div class="container text-center my-5">
-        <img src="ruta-a-tu-imagen.jpg" class="img-fluid" alt="Imagen Distribuidora">
-        <h2 class="mt-4">"Somos una Familia que se preocupa por ti y tus seres queridos, tu salud nos importa por eso trabajamos con productos de la mejor calidad"</h2>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-light text-center py-3">
-        <p>&copy; 2024 DISTRIMEC. Todos los derechos reservados.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <a class="product" th:href="@{'/productos/3/editar'}">
+                <img th:src="@{/imagenes/img2.jpg}" alt="Medicamento 2">
+                <h3>Amoxicilina </h3>
+                <p>La combinación de amoxicilina y ácido clavulánico se usa para tratar ciertas infecciones causadas por bacterias, 
+                    incluyendo infecciones en los oídos, pulmones, senos, piel y vías urinarias. La amoxicilina pertenece a una clase de antibióticos 
+                    llamados "medicamentos similares" a la penicilina.</p></a>
+            </a>
+            <a class="product" th:href="@{'/productos/8/editar'}">
+                <img th:src="@{/imagenes/img3.jpg}" alt="Medicamento 3">
+                <h3>Aspirina </h3>
+                <p>Aspirina®, conocida coloquialmente como Aspirina Clásica, es uno de los medicamentos más ampliamente usados 
+                    para aliviar el dolor de cabeza, así como algunos síntomas del resfriado común y la fiebre.</p>
+            </a>
+            <a class="product" th:href="@{'/productos/4/editar'}">
+                <img th:src="@{/imagenes/img4.jpg}" alt="Medicamento 3">
+                <h3>Clorfenamina</h3>
+                <p>La clorfeniramina se usa para aliviar el enrojecimiento, la picazón y el lagrimeo de ojos; los estornudos; 
+                    la irritación de nariz o garganta; y la secreción nasal ocasionados por las alergias, la fiebre del heno y el resfriado común.</p>
+            </a>
+            <a class="product" th:href="@{'/productos/5/editar'}">
+                <img th:src="@{/imagenes/img5.jpg}" alt="Medicamento 3">
+                <h3>Omeprazol</h3>
+                <p>El omeprazol de venta libre se usa en adultos para ayudar a controlar la acidez estomacal frecuente (ardor de estómago que ocurre al menos 2 o más días por semana). 
+                    El omeprazol pertenece a una clase de medicamentos llamados inhibidores de la bomba de protones.</p>
+            </a>
+            <a class="product" th:href="@{'/productos/6/editar'}">
+                <img th:src="@{/imagenes/img6.jpg}" alt="Medicamento 3">
+                <h3>Losartán</h3>
+                <p>Medicamento que se usa para tratar la presión arterial alta. El losartán potásico bloquea la acción de las sustancias químicas 
+                    que hacen contraer (hacer más estrechos) los vasos sanguíneos. 
+                    Es un tipo de antagonista del receptor de la angiotensina II. También se llama Cozaar.</p>
+            </a>
+        </section>
+    </main>
+</div>
+    <div class="footer" th:replace="~{fragments/footer :: footer}"></div>
+    <script th:src="@{/js/home.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 </body>
-
 </html>

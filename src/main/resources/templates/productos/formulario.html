@@ -14,41 +14,47 @@
             <div class="col-md-8"> <!-- Ajusta el tamaño de la columna para controlar el ancho del formulario -->
                 <form th:action="@{/productos/nuevo}" th:object="${producto}" method="post" th:if="${producto.codProducto == null }">
                     <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="codProducto">codProductoNombre:</label>
-                            <input type="text" id="codProducto" name="codProducto" th:value="*{codProducto}" class="form-control" />
+                        <div class="col-md-4 form-group">
+                            <label for="codProducto">Codigo  medicamento:</label>
+                            <input type="number" id="codProducto" name="codProducto" th:value="*{codProducto}" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="nombreProducto">producto:</label>
+                        <div class="col-md-4 form-group">
+                            <label for="nombreProducto">Nombre medicamento:</label>
                             <input type="text" id="nombreProducto" name="nombreProducto" th:value="*{nombreProducto}" class="form-control" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="lote">lote:</label>
+                            <input type="text" id="lote" name="lote" th:value="*{lote}" class="form-control" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            <label for="lote">lote:</label>
-                            <input type="text" id="lote" name="lote" th:value="*{lote}" class="form-control" />
-                        </div>
-                        <div class="col-md-6 form-group">
                             <label for="precio">precio:</label>
-                            <input type="text" id="precio" name="precio" th:value="*{precio}" class="form-control" />
+                            <input type="number" id="precio" name="precio" th:value="*{precio}" class="form-control" />
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="preciofechaVencimiento">fechaVencimiento:</label>
-                            <input type="text" id="fechaVencimiento" name="fechaVencimiento" th:value="*{fechaVencimiento}" class="form-control" />
+                            <input type="date" id="fechaVencimiento" name="fechaVencimiento" th:value="*{fechaVencimiento}" class="form-control" />
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="proveedorCod">proveedor:</label>
-                            <input type="text" id="proveedorCod" name="proveedorCod" th:value="*{proveedorCod}" class="form-control" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="proveedorSelect">proveedor:</label>
+                            <select class="form-control" id="proveedorSelect" name="proveedor.codProveedor">
+                                <option value="">Seleccione un Cargo</option>
+                                <option th:each="proveedor : ${proveedores}" th:value="${proveedor.codProveedor}" th:text="${proveedor.empresa}"></option>
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="stock">stock:</label>
-                            <input type="text" id="stock" name="stock" th:value="*{stock}" class="form-control" />
+                            <input type="number" id="stock" name="stock" th:value="*{stock}" class="form-control" />
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
                 <form th:action="@{/productos/{codProducto}/editar(codProducto=${producto.codProducto})}" th:object="${producto}" method="post" th:if="${producto.codProducto != null}">
                     <div class="row">
+                        <input type="hidden" id="codProducto" name="codProducto" th:value="*{codProducto}" />
                         <div class="col-md-6 form-group">
                             <label for="codProducto">codProducto:</label>
                             <input type="text" id="codProducto" name="codProducto" th:value="*{codProducto}" class="form-control" />
@@ -65,19 +71,21 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="precio">precio:</label>
-                            <input type="text" id="precio" name="precio" th:value="*{precio}" class="form-control" />
+                            <input type="number" id="precio" name="precio" th:value="*{precio}" class="form-control" />
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="preciofechaVencimiento">fechaVencimiento:</label>
-                            <input type="text" id="fechaVencimiento" name="fechaVencimiento" th:value="*{fechaVencimiento}" class="form-control" />
+                            <input type="date" id="fechaVencimiento" name="fechaVencimiento" th:value="*{fechaVencimiento}" class="form-control datepicker" />
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="proveedorCod">proveedor:</label>
-                            <input type="text" id="proveedorCod" name="proveedorCod" th:value="*{proveedorCod}" class="form-control" />
+                        <div class="col-md-6">
+                            <label for="proveedorSelect">proveedor:</label>
+                            <select class="form-control" id="proveedorSelect" th:value="${producto.proveedor.codProveedor}" name="proveedor.codProveedor">
+                                <option th:each="proveedor : ${proveedores}" th:value="${proveedor.codProveedor}" th:text="${proveedor.empresa}" th:selected="${proveedor.codProveedor == producto.proveedor.codProveedor}"></option>
+                            </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="stock">stock:</label>
-                            <input type="text" id="stock" name="stock" th:value="*{stock}" class="form-control" />
+                            <input type="number" id="stock" name="stock" th:value="*{stock}" class="form-control" />
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Confirmar</button>

@@ -36,13 +36,15 @@
                                 <button type="submit" class="btn btn-primary btn-block mt-3">Iniciar sesión</button>
                             </div>
                         </form>
+                        <div class="alert alert-success mt-3" th:if="${message != null}"
+                            th:text="${message}"></div>
                         <div class="alert alert-danger mt-3" th:if="${error != null}"
                             th:text="${error}"></div>
                         <div class="text-center mt-3">
-                            <a href="#">olvide mi contraseña</a>
+                            <a th:href="@{/olvido}">olvide mi contraseña</a>
                         </div>
                         <div class="text-center mt-3">
-                            <a href="#">¿No tienes una cuenta? Regístrate</a>
+                            <a th:href="@{/registro}">¿No tienes una cuenta? Regístrate</a>
                         </div>
                     </div>
                 </div>

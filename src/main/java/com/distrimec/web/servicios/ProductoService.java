@@ -24,16 +24,9 @@ public class ProductoService {
     }
 
      public Producto actualizarProducto(Integer codProducto, Producto productoActualizado) {
-        Producto productoExistente = obtenerProductoxId(codProducto);
-        productoExistente.setCodProducto(productoActualizado.getCodProducto());
-        productoExistente.setNombreProducto(productoActualizado.getNombreProducto());
-        productoExistente.setLote(productoActualizado.getLote());
-        productoExistente.setPrecio(productoActualizado.getPrecio());
-        productoExistente.setFechaVencimiento(productoActualizado.getFechaVencimiento());
-        productoExistente.setProveedorCod(productoActualizado.getProveedorCod());
-        productoExistente.setStock(productoActualizado.getStock());
+        productoActualizado.setCodProducto(codProducto);
         // Actualizar otros campos según sea necesario
-        return iProductoRepository.save(productoExistente);
+        return iProductoRepository.save(productoActualizado);
     }
     public void  eliminarProducto(Integer codProducto){
         iProductoRepository.deleteById(codProducto);

@@ -17,7 +17,7 @@ function agregarProductoATabla() {
         id: productoSeleccionado.val(),
         nombre: productoSeleccionado.text(),
         precio: parseFloat(productoSeleccionado.data('precio')),
-        cantidad: $('#productoSelect').val(), // Por defecto agregamos 1, se puede modificar para permitir seleccionar cantidad
+        cantidad: $('#cantidad').val(), // Por defecto agregamos 1, se puede modificar para permitir seleccionar cantidad
         subtotal: function() { return this.precio * this.cantidad; }
     };
 
@@ -92,6 +92,7 @@ function guardarFactura() {
     .then(response => response.json())
     .then(response => {
         console.log('Factura guardada:', response);
+        location.reload();
     })
     .catch(error => {
         console.error('Error al guardar la factura:', error);

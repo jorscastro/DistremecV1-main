@@ -51,6 +51,9 @@ public class Usuario implements UserDetails{
     @Column(name = "correo")
     private String correo;
 
+    @Column(name = "token")
+    private String token;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ciudadid", referencedColumnName = "idciudad")
     private Ciudad ciudad;

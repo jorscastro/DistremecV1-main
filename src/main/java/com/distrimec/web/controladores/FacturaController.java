@@ -78,12 +78,14 @@ public class FacturaController {
             Factura newFactura=null;
             if (mapperFactura.getCliente() != null) {
                newFactura= facturaService.crearFatura(mapperFactura,VENTAS,usuario);
+               detalleFacturaService.crearDetalleFatura(mapperFactura,newFactura,VENTAS);
             }else{
                 newFactura= facturaService.crearFatura(mapperFactura,COMPRAS,usuario);
+                detalleFacturaService.crearDetalleFatura(mapperFactura,newFactura,COMPRAS);
             }
             
             
-            detalleFacturaService.crearDetalleFatura(mapperFactura,newFactura);
+            
             
             return new ResponseEntity<>(new ApiResponse(true, "Factura recibida correctamente"), HttpStatus.OK);
         }catch(Exception e){

@@ -47,6 +47,7 @@ public class UsuarioController {
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("usuario", new Usuario());
         model.addAttribute("ciudades", ciudadService.obtenerTodasLasCiudades());
+        model.addAttribute("cargos", usuarioServicio.listarCargos());
         return "usuarios/formulario";
     }
 
@@ -62,6 +63,7 @@ public class UsuarioController {
         Usuario usuario = usuarioServicio.obtenerUsuario(id);
         model.addAttribute("usuario", usuario);
         model.addAttribute("ciudades", ciudadService.obtenerTodasLasCiudades());
+        model.addAttribute("cargos", usuarioServicio.listarCargos());
         return "usuarios/formulario";
     }
 

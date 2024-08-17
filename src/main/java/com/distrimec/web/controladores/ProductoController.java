@@ -1,12 +1,8 @@
 package com.distrimec.web.controladores;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.distrimec.web.modelos.entidades.Cliente;
 import com.distrimec.web.modelos.entidades.Producto;
+import com.distrimec.web.modelos.entidades.Proveedor;
 import com.distrimec.web.servicios.ProductoService;
+import com.distrimec.web.servicios.ProveedorServicio;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -28,6 +25,9 @@ public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
+        @Autowired
+    private ProveedorServicio proveedorService;
+
      @GetMapping("/")
     public String listarProductos(Model model,
 			HttpServletRequest request) {
@@ -37,10 +37,12 @@ public class ProductoController {
     @GetMapping("/nuevo")
     public String mostrarFormularioNuevoProducto(Model model) {
         model.addAttribute("producto", new Producto());
+        List<Proveedor> proveedores = proveedorService.obtenerTodosLosProveedores();
+        model.addAttribute("proveedores", proveedores);
         return "productos/formulario";
     }
     @PostMapping("/nuevo")
-    public String crearProducto(@ModelAttribute Producto producto,Model model) {
+    public String crearProducto(@ModelAttribute("producto") Producto producto,Model model) {
         productoService.crearProducto(producto);
         model.addAttribute("productos", productoService.obtenerTodosLosProductos());
         return "redirect:/productos/";
@@ -49,20 +51,15 @@ public class ProductoController {
      @GetMapping("/{codProducto}/editar")
     public String mostrarFormularioEditarproducto(@PathVariable Integer codProducto, Model model) {
         model.addAttribute("producto", productoService.obtenerProductoxId(codProducto));
+        List<Proveedor> proveedores = proveedorService.obtenerTodosLosProveedores();
+        model.addAttribute("proveedores", proveedores);
         return "productos/formulario";
     }
 
     @PostMapping("/{codProducto}/editar")
     public String actualizarProducto(@PathVariable Integer codProducto, @ModelAttribute Producto producto, Model model) {
-        Producto productoActual = productoService.obtenerProductoxId(codProducto);
-        productoActual.setCodProducto(producto.getCodProducto());
-        productoActual.setNombreProducto(producto.getNombreProducto());
-        productoActual.setLote(producto.getLote());
-        productoActual.setPrecio(producto.getPrecio());
-        productoActual.setFechaVencimiento(producto.getFechaVencimiento());
-        productoActual.setProveedorCod(producto.getProveedorCod());
-        productoActual.setStock(producto.getStock());
-        productoService.actualizarProducto(codProducto,productoActual);
+        producto.setCodProducto(codProducto);
+        productoService.actualizarProducto(codProducto,producto);
         model.addAttribute("productos", productoService.obtenerTodosLosProductos());
         return "redirect:/productos/";
     }

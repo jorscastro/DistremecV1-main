@@ -22,7 +22,7 @@ public class DetalleFacturaService {
     @Autowired
     private ProductoService productoService;
 
-    public List<DetalleFactura> crearDetalleFatura(MapperFactura mapperFactura, Factura newFactura){
+    public List<DetalleFactura> crearDetalleFatura(MapperFactura mapperFactura, Factura newFactura, Integer tipo){
         List<DetalleFactura> detalles = new ArrayList<>();
         for (MapperProducto  mapperProducto: mapperFactura.getProductos()) {
                 DetalleFactura detalleFactura = new DetalleFactura();
@@ -34,8 +34,14 @@ public class DetalleFacturaService {
                 detalleFactura.setIva(0.0);
                 detalleFactura.setValor(mapperProducto.getPrecio());
                 detalleFactura.setFacturaId(newFactura.getIdFactura());
-                detalles.add(iDetalleFacturaRepository.save(detalleFactura));
-
+                detalles.add(detalleFactura);
+                iDetalleFacturaRepository.save(detalleFactura);
+                if (tipo == 1){
+                    producto.setStock(producto.getStock()-mapperProducto.getCantidad()); 
+                }else{  
+                    producto.setStock(producto.getStock()+mapperProducto.getCantidad());    
+                }
+                productoService.actualizarProducto(producto.getCodProducto(), producto);
             }
         return detalles;
     }
